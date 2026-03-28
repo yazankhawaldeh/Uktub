@@ -1,0 +1,1 @@
+void textInputLoop(int ch);
