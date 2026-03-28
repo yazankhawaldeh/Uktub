@@ -9,21 +9,21 @@ void textInputLoop(int ch)
         {
 
         case KEY_BACKSPACE:
-            int y,x;
-            getyx(stdscr, y, x);
-            if (x > 0) { mvdelch(y,x -1); } else {
-                    getmaxyx(stdscr, y, x);
-                    mvdelch(y, x-1);
+            int y,x; //coordinate of cursor
+            getyx(stdscr, y, x); // get the coordinates on screen
+            if (x > 0) // if not EOL
+            { mvdelch(y,x -1);  // delete char @ cursor
+            } else {
+                getcury(stdscr); // get amount of lines
+                if (y > 0)
+                {
+                mvdelch(y-1, getcurx(stdscr));
                 }
+            }
             refresh();
             break;
-        case 8:
-            getyx(stdscr, y, x);
-            if (x > 0) { mvdelch(y,x -1); } else {
-                    getmaxyx(stdscr, y, x);
-                    mvdelch(y, x-1);
-                }
-            refresh();
+        case KEY_F(2):
+            printw("The max y value is %d", getmaxy(stdscr));
             break;
         default:
             printw("%c", ch);
@@ -31,3 +31,5 @@ void textInputLoop(int ch)
         }
         refresh();
 }
+
+
